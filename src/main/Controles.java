@@ -9,8 +9,12 @@ import java.awt.event.KeyListener;
  * @author usuario
  */
 public class Controles implements KeyListener{
-    
+    Panel gp;
     public Boolean arriba = false, abajo = false, izquierda = false, derecha = false;
+    
+    public Controles(Panel gp) {
+    	this.gp = gp;
+    }
     
     @Override
     public void keyTyped(KeyEvent e) {
@@ -21,6 +25,36 @@ public class Controles implements KeyListener{
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         
+        //EN MENU DE INICIO
+        if (gp.estadoJuego == gp.menuInicio) {
+        	if (code == KeyEvent.VK_W){
+        		if(gp.ui.comando > 0) {
+                gp.ui.comando--; }
+            }
+            
+            if (code == KeyEvent.VK_S){
+            	if (gp.ui.comando < 2) {
+            	gp.ui.comando++; }
+            }
+        	
+            if(code == KeyEvent.VK_ENTER) {
+            	if(gp.ui.comando == 0) {
+            		gp.estadoJuego = gp.enJuego;
+            		gp.stopMusic();
+            		gp.playMusic(0);
+            	}
+            	if(gp.ui.comando == 1) {
+            		//Luego se hace el panel de estadisticas
+            	}
+            	
+            	if(gp.ui.comando == 2) {
+            		//Luego se hace el panel de ayuda
+            	}
+            }
+            
+        }
+        
+        //EN JUEGO
         if (code == KeyEvent.VK_W){
             arriba = true;
         }
@@ -35,6 +69,16 @@ public class Controles implements KeyListener{
         
         if (code == KeyEvent.VK_D){
             derecha = true;
+        }
+        
+        if (code == KeyEvent.VK_P){
+            if(gp.estadoJuego == gp.enJuego) {
+            	gp.estadoJuego = gp.enPausa;
+            }
+            else if(gp.estadoJuego == gp.enPausa) {
+            	gp.estadoJuego = gp.enJuego;
+            	
+            }
         }
         
     }

@@ -15,8 +15,6 @@ import main.Panel;
 public class Jugador extends Entidad {
     Panel gp;
     Controles control;
-    public int tieneBomba = 1;
-    public int tienePatines = 0;
     
     
     public Jugador (Panel gp, Controles control){
@@ -119,13 +117,10 @@ public class Jugador extends Entidad {
     		
     		switch(nombreObjeto) {
     			case "bomba":
-    				tieneBomba++;
     				gp.obj[i] = null;
-    				System.out.println("Bomba: " + tieneBomba);
     				break;
     				
     			case "patines":
-    				tienePatines++;
     				gp.playSE(1);
     				velocidad = velocidad + 1;
     				gp.obj[i] = null;

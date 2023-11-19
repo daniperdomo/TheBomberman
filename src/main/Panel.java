@@ -29,20 +29,27 @@ public class Panel extends JPanel implements Runnable{
     
     //Sistema
     TileManager tileM = new TileManager(this);
-    Controles control = new Controles();
+    Controles control = new Controles(this);
     Sonido sonido = new Sonido();
     public PruebaColision cChecker = new PruebaColision(this);
     public AssetSetter aSetter = new AssetSetter(this);
-    //public UI ui = new UI(this);
+    public UI ui = new UI(this);
     Thread hilo;
     
     //Entidades y objetos.
     Jugador jugador = new Jugador(this, control);
     public SuperObjeto obj[] = new SuperObjeto[10];
     
+    //Estado de juego
+    public int estadoJuego;
+    
+    public final int menuInicio = 0;
+    public final int enJuego = 1;
+    public final int enPausa = 2;
+    
     public Panel () {
         this.setPreferredSize(new Dimension(ancho_pantalla, alto_pantalla));
-        this.setBackground(Color.green);
+        this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(control);
         this.setFocusable(true);
@@ -52,7 +59,11 @@ public class Panel extends JPanel implements Runnable{
     	
     	aSetter.setObject();
     	
+    	//playMusic(5);
+    	
+    	estadoJuego = menuInicio;
     	playMusic(2);
+    	
     }
     
     public void iniciar_hilo(){
@@ -93,7 +104,15 @@ public class Panel extends JPanel implements Runnable{
     }
     
     public void actualizar() {
-        jugador.actualizar();
+    	
+    	if(estadoJuego == enJuego) {
+    		jugador.actualizar();
+    	}
+    	
+    	if(estadoJuego == enPausa) {
+    		
+    	}
+    	
     }
     
     @Override
@@ -103,22 +122,31 @@ public class Panel extends JPanel implements Runnable{
     
         Graphics2D g2 = (Graphics2D)g;
         
-        //Tile
-        tileM.draw(g2);
-        
-        //Objeto
-        for (int i=0; i<obj.length; i++) {
-        	if(obj[i] != null) {
-        		obj[i].draw(g2, this);
-        	}
+        //Menu de inicio.
+        if(estadoJuego == menuInicio) {
+        	ui.draw(g2);
         }
         
-        //Jugador
-        jugador.dibujar(g2);
-        
-        //UI
-        //ui.draw(g2);
-        
+        //Resto de pantallas.
+        else {
+        	
+        	//Tile
+            tileM.draw(g2);
+        	
+        	//Objeto
+            for (int i=0; i<obj.length; i++) {
+            	if(obj[i] != null) {
+            		obj[i].draw(g2, this);
+            	}
+            }
+            
+            
+            //Jugador
+            jugador.dibujar(g2);
+            
+        	ui.draw(g2);
+        }
+        	
         g2.dispose();
     }
     
