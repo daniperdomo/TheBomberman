@@ -20,7 +20,7 @@ public class Panel extends JPanel implements Runnable{
     
     public final int window_size = original_window_size * escala;   //tile_size
     public final int columnas_maximas = 17;
-    public final int filas_maximas = 13;
+    public final int filas_maximas = 14;
     public final int ancho_pantalla = window_size * columnas_maximas;
     public final int alto_pantalla = window_size * filas_maximas;
     

@@ -4,10 +4,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Obj_Patines extends SuperObjeto{
+import main.Panel;
 
-	public Obj_Patines() {
-			
+public class Obj_Patines extends SuperObjeto{
+	
+	Panel gp;
+	
+	public Obj_Patines(Panel gp) {
+			this.gp = gp;
 			nombre = "patines";
 			
 			try {

@@ -8,7 +8,7 @@ import main.Panel;
 
 public class SuperObjeto {
 
-	public BufferedImage image;
+	public BufferedImage image, image2;
 	public String nombre;
 	public boolean colision = false;
 	public int x, y;

@@ -13,12 +13,13 @@ import main.Panel;
  * @author usuario
  */
 public class Jugador extends Entidad {
-    Panel gp;
+	
     Controles control;
     
     
     public Jugador (Panel gp, Controles control){
-        this.gp = gp;
+        
+    	super(gp);
         this.control = control;
         
         solidArea = new Rectangle(8, 16, 32, 32);  //Hitbox de Colision (x, y, ancho, largo)
@@ -30,10 +31,14 @@ public class Jugador extends Entidad {
     }
     
     public void setPredeterminado(){
-        x = 46;
-        y = 46;
+        x = 48;
+        y = 90;
         velocidad = 1;
         direccion = "abajo";
+        
+        //Estado de jugador
+        vidamax = 3;
+        vida = vidamax;
     }
     
     public void getPlayerImage(){

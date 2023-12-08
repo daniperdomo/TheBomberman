@@ -5,8 +5,11 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import objeto.SuperObjeto;
+import objeto.Obj_vida;
 
 public class UI {
 	
@@ -15,6 +18,7 @@ public class UI {
 	Font menuFont, opcionesFont;
 	Font italic_40;
 	public int comando = 0;
+	BufferedImage heart, emptyheart;
 	
 	public UI (Panel gp) {
 		this.gp = gp;
@@ -29,6 +33,11 @@ public class UI {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+		//HUD objetos
+		SuperObjeto corazon = new Obj_vida(gp);
+		heart = corazon.image;
+		emptyheart = corazon.image2;
 	}
 	
 	
@@ -44,14 +53,44 @@ public class UI {
 		
 		//En juego
 		if(gp.estadoJuego == gp.enJuego) {
-			//Luego
+			drawPlayerLife();
 		}
 		//En pausa
 		if(gp.estadoJuego == gp.enPausa) {
+			drawPlayerLife();
 			PantallaPausa();
 		}
 		
 			
+	}
+	
+	public void drawPlayerLife() {
+		
+		int x = gp.window_size/100;
+		int y = gp.window_size/100;
+		int i = 0;
+		
+		//Dibujar corazones maximos
+		while(i< gp.jugador.vidamax) {
+			g2.drawImage(emptyheart, x, y, null);
+			i++;
+			x = x + gp.window_size;
+		}
+		
+		//Reset
+		x = gp.window_size/100;
+		y = gp.window_size/100;
+	    i = 0;
+		
+	    //Dibujar vida actual
+	    while(i<gp.jugador.vida) {
+	    	if(i<gp.jugador.vida) {
+	    		g2.drawImage(heart, x, y, null);
+	    	}
+	    	i++;
+	    	x = x + gp.window_size;
+	    }
+	    
 	}
 	
 	public void drawmenuInicio() {
