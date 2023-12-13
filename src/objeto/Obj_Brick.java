@@ -1,25 +1,20 @@
 package objeto;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entidad.Entidad;
 import main.Panel;
+import main.UtilityTool;
 
-public class Obj_Brick extends SuperObjeto{
+public class Obj_Brick extends Entidad{
 	
-	Panel gp;
+	UtilityTool uTool = new UtilityTool();
 	
 	public Obj_Brick(Panel gp) {
-		this.gp = gp;
-		nombre = "bricks";
+		super(gp);
 		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objetos/brick.png"));
-			
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		nombre = "bricks";
+		abajo1 = setup("/objetos/brick");
+		
+	}
 }
 
-}
+

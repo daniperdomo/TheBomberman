@@ -1,23 +1,17 @@
 package objeto;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entidad.Entidad;
 import main.Panel;
+import main.UtilityTool;
 
-public class Obj_vidaextra extends SuperObjeto{
+public class Obj_vidaextra extends Entidad{
 
-	Panel gp;
+	UtilityTool uTool = new UtilityTool();
+	
 	public Obj_vidaextra(Panel gp) {
-		this.gp = gp;
+		super(gp);
 		
 		nombre = "vidaextra";
-		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objetos/vidaextra.png"));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		abajo1 = setup("/objetos/vidaextra");
 	}
 }

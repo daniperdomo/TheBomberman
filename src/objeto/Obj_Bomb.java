@@ -1,25 +1,18 @@
 package objeto;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entidad.Entidad;
 import main.Panel;
+import main.UtilityTool;
 
-public class Obj_Bomb extends SuperObjeto {
-	
-	Panel gp;
+public class Obj_Bomb extends Entidad {
+
+	UtilityTool uTool = new UtilityTool();
 	
 	public Obj_Bomb(Panel gp) {
-		this.gp = gp;
+		super(gp);
 		
 		nombre = "bomba";
-		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objetos/bomba1.png"));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		//abajo1 = setup("/objetos/brick");
 	}
 
 }

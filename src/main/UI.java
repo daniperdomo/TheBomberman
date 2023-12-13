@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import objeto.SuperObjeto;
 import objeto.Obj_vida;
+import entidad.Entidad;
 
 public class UI {
 	
@@ -35,7 +35,7 @@ public class UI {
 		}
 		
 		//HUD objetos
-		SuperObjeto corazon = new Obj_vida(gp);
+		Entidad corazon = new Obj_vida(gp);
 		heart = corazon.image;
 		emptyheart = corazon.image2;
 	}

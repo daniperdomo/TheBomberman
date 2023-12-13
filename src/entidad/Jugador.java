@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.Controles;
-import main.Panel;       
+import main.Panel;
+import main.UtilityTool;       
 /**
  *
  * @author usuario
@@ -42,19 +43,16 @@ public class Jugador extends Entidad {
     }
     
     public void getPlayerImage(){
-        try{
-
-            arriba1 = ImageIO.read(getClass().getResourceAsStream("/player/arriba1.png"));
-            arriba2 = ImageIO.read(getClass().getResourceAsStream("/player/arriba2.png"));
-            abajo1 = ImageIO.read(getClass().getResourceAsStream("/player/abajo1.png"));
-            abajo2 = ImageIO.read(getClass().getResourceAsStream("/player/abajo2.png"));
-            izq1 = ImageIO.read(getClass().getResourceAsStream("/player/izquierda1.png"));
-            izq2 = ImageIO.read(getClass().getResourceAsStream("/player/izquierda2.png"));
-            der1 = ImageIO.read(getClass().getResourceAsStream("/player/derecha1.png"));
-            der2 = ImageIO.read(getClass().getResourceAsStream("/player/derecha2.png"));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        
+        arriba1 = setup("/player/arriba1");
+        arriba2 = setup("/player/arriba2");
+        abajo1 = setup("/player/abajo1");
+        abajo2 = setup("/player/abajo2");
+        izq1 = setup("/player/izquierda1");
+        izq2 = setup("/player/izquierda2");
+        der1 = setup("/player/derecha1");
+        der2 = setup("/player/derecha2");
+        
     }
     
     public void actualizar() {
@@ -179,7 +177,7 @@ public class Jugador extends Entidad {
             	}
                 break;
         }
-        g2.drawImage(image, x, y, gp.window_size, gp.window_size, null);
+        g2.drawImage(image, x, y, null);
     }
     
 }

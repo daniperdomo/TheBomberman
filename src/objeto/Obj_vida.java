@@ -1,23 +1,19 @@
 package objeto;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import objeto.SuperObjeto;
+import entidad.Entidad;
 import main.Panel;
+import main.UtilityTool;
 
-public class Obj_vida extends SuperObjeto{
-	Panel gp;
+public class Obj_vida extends Entidad{
+	
+	UtilityTool uTool = new UtilityTool();
+	
 	public Obj_vida(Panel gp) {
-		this.gp = gp;
+		super(gp);
 		
 		nombre = "corazon";
+		image = setup("/objetos/heart");
+		image2 = setup("/objetos/emptyheart");
 		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objetos/heart.png"));
-			image2 = ImageIO.read(getClass().getResourceAsStream("/objetos/emptyheart.png"));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
 	}
 }

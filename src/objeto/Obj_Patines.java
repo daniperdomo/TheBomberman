@@ -1,24 +1,16 @@
 package objeto;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entidad.Entidad;
 import main.Panel;
+import main.UtilityTool;
 
-public class Obj_Patines extends SuperObjeto{
+public class Obj_Patines extends Entidad{
 	
-	Panel gp;
+	UtilityTool uTool = new UtilityTool();
 	
 	public Obj_Patines(Panel gp) {
-			this.gp = gp;
+			super(gp);
 			nombre = "patines";
-			
-			try {
-				image = ImageIO.read(getClass().getResourceAsStream("/objetos/patines.png"));
-				
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
+			abajo1 = setup("/objetos/patines");
 	}
 }

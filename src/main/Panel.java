@@ -1,7 +1,7 @@
 package main;
 
+import entidad.Entidad;
 import entidad.Jugador;
-import objeto.SuperObjeto;
 import tile.TileManager;
 
 import java.awt.Color;
@@ -38,7 +38,7 @@ public class Panel extends JPanel implements Runnable{
     
     //Entidades y objetos.
     Jugador jugador = new Jugador(this, control);
-    public SuperObjeto obj[] = new SuperObjeto[10];
+    public Entidad obj[] = new Entidad[10];
     
     //Estado de juego
     public int estadoJuego;
@@ -136,7 +136,7 @@ public class Panel extends JPanel implements Runnable{
         	//Objeto
             for (int i=0; i<obj.length; i++) {
             	if(obj[i] != null) {
-            		obj[i].draw(g2, this);
+            		obj[i].draw(g2);  // (g2, this)??
             	}
             }
             

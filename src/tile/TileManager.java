@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import main.Panel;
+import main.UtilityTool;
+
 import javax.imageio.ImageIO;
 
 public class TileManager {
@@ -27,26 +29,26 @@ public class TileManager {
 	
 	public void getTileImage () {
 		
+			setup(0, "muro", true);
+			setup(1, "black", true);
+			setup(2, "grass1", false);
+			setup(3, "grass2", false);
+			
+			
+	}
+	
+	public void setup(int index, String imageName, boolean colision) {
+		
+		UtilityTool uTool = new UtilityTool();
 		try {
-			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/muro.png"));
-			tile[0].colision = true;
-			
-			
-			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/black.png"));
-			
-			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass1.png")); 
-			
-			tile[3] = new Tile();
-			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass2.png"));
-			
-			
-			
+			tile[index] = new Tile();
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
+			tile[index].image = uTool.scaleImage(tile[index].image, gp.window_size, gp.window_size);
+			tile[index].colision = colision;		
 		}catch(IOException e) {
 			e.printStackTrace();
-		}
+		}		
+		
 	}
 	
 	public void cargarMapa(String filePath) {
@@ -92,7 +94,7 @@ public class TileManager {
 			
 			int tileNum = mapTileNum[col][fil];
 			
-			g2.drawImage(tile[tileNum].image, x, y, gp.window_size, gp.window_size, null);
+			g2.drawImage(tile[tileNum].image, x, y, null);
 			col++;
 			x = x +gp.window_size;
 			
