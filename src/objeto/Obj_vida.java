@@ -3,7 +3,7 @@ package objeto;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
+import objeto.SuperObjeto;
 import main.Panel;
 
 public class Obj_vida extends SuperObjeto{
@@ -19,5 +19,5 @@ public class Obj_vida extends SuperObjeto{
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-}
+	}
 }

@@ -37,7 +37,7 @@ public class Jugador extends Entidad {
         direccion = "abajo";
         
         //Estado de jugador
-        vidamax = 3;
+        vidamax = 2;
         vida = vidamax;
     }
     
@@ -131,6 +131,12 @@ public class Jugador extends Entidad {
     				gp.obj[i] = null;
     				break; 
     				
+    			case "vidaextra":
+    				gp.playSE(1);
+    				if (vida<vidamax){
+    					vida = vida + 1;
+    				}
+    				gp.obj[i] = null;
     		}
     	}
     }
