@@ -130,4 +130,89 @@ public class PruebaColision {
 		
 		return index;
 	}
+	
+	//Colision de monstruos
+	public int checkEntidad(Entidad entidad, Entidad[] objetivo) {
+		
+		int index = 999;
+		
+		for(int i=0; i< objetivo.length; i++) {
+			if(objetivo[i] != null) {
+				//Obtener posicion de entidad.
+				entidad.solidArea.x = entidad.x + entidad.solidArea.x;
+				entidad.solidArea.y = entidad.y + entidad.solidArea.y;
+				
+				//Obtener posicion de objeto.
+				objetivo[i].solidArea.x = objetivo[i].x + objetivo[i].solidArea.x;
+				objetivo[i].solidArea.y = objetivo[i].y + objetivo[i].solidArea.y;
+				
+				switch(entidad.direccion) {
+				case "arriba": entidad.solidArea.y = entidad.solidArea.y - entidad.velocidad; break;
+				case "abajo": entidad.solidArea.y = entidad.solidArea.y + entidad.velocidad; break;
+				case "izquierda": entidad.solidArea.x = entidad.solidArea.x - entidad.velocidad; break;
+				case "derecha": entidad.solidArea.x = entidad.solidArea.x + entidad.velocidad; break;
+				}
+					
+				if(entidad.solidArea.intersects(objetivo[i].solidArea)) {
+					if(objetivo[i] != entidad) {
+						entidad.colisionOn = true;
+						index = i;
+					}
+				}
+					
+				
+				entidad.solidArea.x = entidad.solidAreaDefaultX;
+				entidad.solidArea.y = entidad.solidAreaDefaultY;
+				objetivo[i].solidArea.x = objetivo[i].solidAreaDefaultX;
+				objetivo[i].solidArea.y = objetivo[i].solidAreaDefaultY;
+			}
+		}
+		return index;
+		
+	}
+		
+		
+		
+	
+	
+	public boolean checkPlayer(Entidad entidad) {
+		
+		boolean contactPlayer = false;
+		
+		//Obtener posicion de entidad.
+		entidad.solidArea.x = entidad.x + entidad.solidArea.x;
+		entidad.solidArea.y = entidad.y + entidad.solidArea.y;
+				
+		//Obtener posicion de objeto.
+		gp.jugador.solidArea.x = gp.jugador.x + gp.jugador.solidArea.x;
+		gp.jugador.solidArea.y = gp.jugador.y + gp.jugador.solidArea.y;
+				
+		switch(entidad.direccion) {
+		case "arriba":
+			entidad.solidArea.y = entidad.solidArea.y - entidad.velocidad; 
+			break;
+		case "abajo":
+			entidad.solidArea.y = entidad.solidArea.y + entidad.velocidad;
+			break;
+		case "izquierda":
+			entidad.solidArea.x = entidad.solidArea.x - entidad.velocidad;
+			break;
+		case "derecha":
+			entidad.solidArea.x = entidad.solidArea.x + entidad.velocidad;
+			break;
+		}
+		
+		if(entidad.solidArea.intersects(gp.jugador.solidArea)) {
+			entidad.colisionOn = true;
+			contactPlayer = true;
+		}
+		
+		entidad.solidArea.x = entidad.solidAreaDefaultX;
+		entidad.solidArea.y = entidad.solidAreaDefaultY;
+		gp.jugador.solidArea.x = gp.jugador.solidAreaDefaultX;
+		gp.jugador.solidArea.y = gp.jugador.solidAreaDefaultY;
+		
+		return contactPlayer;
+	}
+	
 }

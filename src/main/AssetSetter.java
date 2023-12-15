@@ -1,5 +1,6 @@
 package main;
 
+import monstruos.Mon_stone;
 import objeto.Obj_Bomb;
 import objeto.Obj_Brick;
 import objeto.Obj_Patines;
@@ -32,4 +33,12 @@ public class AssetSetter {
 		
 		
 	}
+	
+	public void setMonster() {
+		gp.monstruo[0] = new Mon_stone(gp);
+		gp.monstruo[0].x = 11 * gp.window_size;
+		gp.monstruo[0].y = 11 * gp.window_size;	
+		
+	}
+	
 }

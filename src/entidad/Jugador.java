@@ -1,14 +1,13 @@
 package entidad;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import main.Controles;
-import main.Panel;
-import main.UtilityTool;       
+import main.Panel;    
 /**
  *
  * @author usuario
@@ -80,6 +79,10 @@ public class Jugador extends Entidad {
 	        int objIndex=  gp.cChecker.checkObjeto(this, true);
 	        recogerObjeto(objIndex);
 	        
+	        //Chequear colision de monstruo
+	        int indexMonstruo = gp.cChecker.checkEntidad(this, gp.monstruo);
+	        contactMonstruo(indexMonstruo);
+	        
 	        //Si la colision es falsa, el jugador no se mueve.
 	        if(colisionOn == false) {
 	        	switch (direccion) {
@@ -112,6 +115,14 @@ public class Jugador extends Entidad {
 	        }
     	}
         
+    	if(invencible == true) {
+    		contInvencible++;
+    		if (contInvencible > 60) {
+    			invencible = false;
+    			contInvencible = 0;
+    		}
+    	} 
+    	
     }
     
     public void recogerObjeto(int i){ //Tambien sirve para la interaccion entre objetos,
@@ -135,6 +146,16 @@ public class Jugador extends Entidad {
     					vida = vida + 1;
     				}
     				gp.obj[i] = null;
+    				break;
+    		}
+    	}
+    }
+    
+    public void contactMonstruo(int i) {
+    	if(i != 999) {
+    		if(invencible == false) {
+    			vida = vida - 1;
+    			invencible = true;
     		}
     	}
     }
@@ -177,7 +198,9 @@ public class Jugador extends Entidad {
             	}
                 break;
         }
-        g2.drawImage(image, x, y, null);
+        
+       //g2.drawImage(image, x, y, null);
+       
     }
     
 }

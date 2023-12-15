@@ -8,6 +8,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import javax.swing.JPanel;
 /**
  *
@@ -37,8 +41,10 @@ public class Panel extends JPanel implements Runnable{
     Thread hilo;
     
     //Entidades y objetos.
-    Jugador jugador = new Jugador(this, control);
+    public Jugador jugador = new Jugador(this, control);
     public Entidad obj[] = new Entidad[10];
+    public Entidad monstruo[] = new Entidad[10];
+    ArrayList<Entidad> entidadLista = new ArrayList<>();
     
     //Estado de juego
     public int estadoJuego;
@@ -58,6 +64,7 @@ public class Panel extends JPanel implements Runnable{
     public void setupGame() {
     	
     	aSetter.setObject();
+    	aSetter.setMonster();
     	
     	//playMusic(5);
     	
@@ -107,12 +114,17 @@ public class Panel extends JPanel implements Runnable{
     	
     	if(estadoJuego == enJuego) {
     		jugador.actualizar();
+    		
+    		for(int i = 0; i < monstruo.length; i++) {
+    			if(monstruo[i] != null) {
+    				monstruo[i].update();
+    			}
+    		}
     	}
     	
     	if(estadoJuego == enPausa) {
     		
     	}
-    	
     }
     
     @Override
@@ -133,21 +145,40 @@ public class Panel extends JPanel implements Runnable{
         	//Tile
             tileM.draw(g2);
         	
-        	//Objeto
-            for (int i=0; i<obj.length; i++) {
+            //Añadir entidades a la lista
+            entidadLista.add(jugador);
+            
+            for (int i = 0; i < obj.length; i++) {
             	if(obj[i] != null) {
-            		obj[i].draw(g2);  // (g2, this)??
+            		entidadLista.add(obj[i]);
             	}
             }
             
+            for (int i = 0; i < monstruo.length; i++) {
+            	if(monstruo[i] != null) {
+            		entidadLista.add(monstruo[i]);
+            	}
+            }
             
-            //Jugador
-            jugador.dibujar(g2);
+            //Sort
+            Collections.sort(entidadLista, new Comparator<Entidad>() {
+            	@Override
+            	public int compare(Entidad e1, Entidad e2) {
+            		int resultado = Integer.compare(e1.y, e2.y);
+            		return resultado;
+            	}
+            });
             
-        	ui.draw(g2);
+            //Dibujar entidades
+            for(int i = 0; i<entidadLista.size(); i++) {
+            	entidadLista.get(i).draw(g2);
+            }
+            
+            //Vaciar lista de entidades
+            entidadLista.clear();
+            
         }
-        	
-        g2.dispose();
+        ui.draw(g2);
     }
     
     public void playMusic(int i) {

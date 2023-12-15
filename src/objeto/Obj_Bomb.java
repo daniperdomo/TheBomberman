@@ -12,7 +12,7 @@ public class Obj_Bomb extends Entidad {
 		super(gp);
 		
 		nombre = "bomba";
-		//abajo1 = setup("/objetos/brick");
+		//abajo1 = setup("/objetos/bomba1");
 	}
 
 }
