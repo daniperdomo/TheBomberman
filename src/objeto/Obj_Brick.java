@@ -12,7 +12,7 @@ public class Obj_Brick extends Entidad{
 		super(gp);
 		
 		nombre = "bricks";
-		abajo1 = setup("/objetos/brick");
+		abajo1 = setup("/objetos/brick", gp.window_size, gp.window_size);
 		
 	}
 }

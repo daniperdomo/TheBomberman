@@ -6,9 +6,13 @@ import entidad.Entidad;
 import main.Panel;
 
 public class Mon_stone extends Entidad{
-
+	
+	Panel gp;
+	
 	public Mon_stone(Panel gp) {
 		super(gp);
+		
+		this.gp = gp;
 		
 		tipo = 1;
 		
@@ -29,14 +33,14 @@ public class Mon_stone extends Entidad{
 	}
 	
 	public void getImage() {
-		arriba1 = setup("/bad_guys/stonearriba1");
-		arriba2 = setup("/bad_guys/stonearriba2");
-		abajo1 = setup("/bad_guys/stoneabajo1");
-		abajo2 = setup("/bad_guys/stoneabajo2");
-		izq1 = setup("/bad_guys/stoneizquierda1");
-		izq2 = setup("/bad_guys/stoneizquierda2");
-		der1 = setup("/bad_guys/stonederecha1");
-		der2 = setup("/bad_guys/stonederecha2");
+		arriba1 = setup("/bad_guys/stonearriba1", gp.window_size, gp.window_size);
+		arriba2 = setup("/bad_guys/stonearriba2", gp.window_size, gp.window_size);
+		abajo1 = setup("/bad_guys/stoneabajo1", gp.window_size, gp.window_size);
+		abajo2 = setup("/bad_guys/stoneabajo2", gp.window_size, gp.window_size);
+		izq1 = setup("/bad_guys/stoneizquierda1", gp.window_size, gp.window_size);
+		izq2 = setup("/bad_guys/stoneizquierda2", gp.window_size, gp.window_size);
+		der1 = setup("/bad_guys/stonederecha1", gp.window_size, gp.window_size);
+		der2 = setup("/bad_guys/stonederecha2", gp.window_size, gp.window_size);
 	}
 	
 	public void setAction() {

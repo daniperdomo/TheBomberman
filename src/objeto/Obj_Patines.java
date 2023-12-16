@@ -11,6 +11,6 @@ public class Obj_Patines extends Entidad{
 	public Obj_Patines(Panel gp) {
 			super(gp);
 			nombre = "patines";
-			abajo1 = setup("/objetos/patines");
+			abajo1 = setup("/objetos/patines", gp.window_size, gp.window_size);
 	}
 }

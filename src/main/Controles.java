@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
  */
 public class Controles implements KeyListener{
     Panel gp;
-    public Boolean arriba = false, abajo = false, izquierda = false, derecha = false;
+    public Boolean arriba = false, abajo = false, izquierda = false, derecha = false, espacio = false;
     
     public Controles(Panel gp) {
     	this.gp = gp;
@@ -71,6 +71,10 @@ public class Controles implements KeyListener{
             derecha = true;
         }
         
+        if (code == KeyEvent.VK_SPACE){
+            espacio = true;
+        }
+        
         if (code == KeyEvent.VK_P){
             if(gp.estadoJuego == gp.enJuego) {
             	gp.estadoJuego = gp.enPausa;
@@ -101,6 +105,10 @@ public class Controles implements KeyListener{
         
         if (code == KeyEvent.VK_D){
             derecha = false;
+        }
+        
+        if (code == KeyEvent.VK_E){
+            espacio = false;
         }
         
     }

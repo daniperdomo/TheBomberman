@@ -33,7 +33,7 @@ public class Panel extends JPanel implements Runnable{
     
     //Sistema
     TileManager tileM = new TileManager(this);
-    Controles control = new Controles(this);
+    public Controles control = new Controles(this);
     Sonido sonido = new Sonido();
     public PruebaColision cChecker = new PruebaColision(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -45,6 +45,7 @@ public class Panel extends JPanel implements Runnable{
     public Entidad obj[] = new Entidad[10];
     public Entidad monstruo[] = new Entidad[10];
     ArrayList<Entidad> entidadLista = new ArrayList<>();
+    public ArrayList<Entidad> proyectilLista = new ArrayList<>();
     
     //Estado de juego
     public int estadoJuego;
@@ -120,6 +121,18 @@ public class Panel extends JPanel implements Runnable{
     				monstruo[i].update();
     			}
     		}
+    		
+    		for(int i = 0; i < proyectilLista.size(); i++) {
+    			if(proyectilLista.get(i) != null) {
+    				if(proyectilLista.get(i).alive == true) {
+    					proyectilLista.get(i).update();
+    				}
+    				if(proyectilLista.get(i).alive == false) {
+    					proyectilLista.remove(i);
+    				}
+    			}
+    		}
+    		
     	}
     	
     	if(estadoJuego == enPausa) {
@@ -159,6 +172,13 @@ public class Panel extends JPanel implements Runnable{
             		entidadLista.add(monstruo[i]);
             	}
             }
+            
+            for (int i = 0; i < proyectilLista.size(); i++){
+            	if(proyectilLista.get(i) != null) {
+            		entidadLista.add(proyectilLista.get(i));
+            	}
+            }
+            
             
             //Sort
             Collections.sort(entidadLista, new Comparator<Entidad>() {

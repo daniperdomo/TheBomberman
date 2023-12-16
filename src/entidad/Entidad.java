@@ -2,8 +2,6 @@ package entidad;
 
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -15,39 +13,49 @@ import main.UtilityTool;
 
 public class Entidad {
 	Panel gp;
-    public int x, y, velocidad;
     public BufferedImage arriba1, arriba2, abajo1, abajo2, izq1, izq2, der1, der2, bombmenu;
-    public String direccion = "abajo";
+    //public BufferedImage ataque;
     
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    public int x, y;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean colisionOn = false;
     public BufferedImage image, image2;
 	public String nombre;
-	public boolean colision = false;
-    public int actionLockCounter;
-    public boolean invencible = false;
-    public int contInvencible = 0;
-	public int tipo; //0 = jugador, 1 = monstruo;     
     
-    //Estado de personaje
-    public int vidamax;
-    public int vida;
+	//Estado de juego
+	public boolean colision = false;
+	public int spriteNum = 1;
+	public String direccion = "abajo";
+	public boolean colisionOn = false;
+	public boolean invencible = false;
+	//public boolean atacando = false;
+	
+	//Contadores
+	public int spriteCounter = 0;
+	public int actionLockCounter;
+    public int contInvencible = 0;
+	
+    //Atributos personaje
+    public int vida, vidamax, velocidad;
+    public int tipo; //0 = jugador, 1 = monstruo;    
+    public int maxMana, mana;
+    
+    public Proyectil proyectil;
+    public int useCost;
+    public boolean alive;
     
     public Entidad(Panel gp) {
     	this.gp = gp;
     	 
     }
     
-    public BufferedImage setup (String imagePath) {
+    public BufferedImage setup (String imagePath, int width, int height) {
     	UtilityTool uTool = new UtilityTool();
     	BufferedImage image = null;
     	
     	try {
     		image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-    		image = uTool.scaleImage(image, gp.window_size, gp.window_size);
+    		image = uTool.scaleImage(image, width, height);
     	}catch(IOException e) {
     		e.printStackTrace();
     	}
@@ -112,36 +120,20 @@ public class Entidad {
     	
     	switch(direccion){
         case "arriba":
-        	if(spriteNum == 1) {
-        		image = arriba1;
-        	}
-        	if(spriteNum == 2) {
-        		image = arriba2;
-        	}
+        	if(spriteNum == 1) {image = arriba1;}
+        	if(spriteNum == 2) {image = arriba2;}
             break;
         case "abajo":
-        	if(spriteNum == 1) {
-        		image = abajo1;
-        	}
-        	if(spriteNum == 2) {
-        		image = abajo2;
-        	}
+        	if(spriteNum == 1) {image = abajo1;}
+        	if(spriteNum == 2) {image = abajo2;}
             break;
         case "izquierda":
-        	if(spriteNum == 1) {
-        		image = izq1;
-        	}
-        	if(spriteNum == 2) {
-        		image = izq2;
-        	}
+        	if(spriteNum == 1) {image = izq1;}
+        	if(spriteNum == 2) {image = izq2;}
             break;
         case "derecha":
-        	if(spriteNum == 1) {
-        		image = der1;
-        	}
-        	if(spriteNum == 2) {
-        		image = der2;
-        	}
+        	if(spriteNum == 1) {image = der1;}
+        	if(spriteNum == 2) {image = der2;}
             break;
     }
     	

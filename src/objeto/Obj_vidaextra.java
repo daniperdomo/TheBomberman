@@ -12,6 +12,6 @@ public class Obj_vidaextra extends Entidad{
 		super(gp);
 		
 		nombre = "vidaextra";
-		abajo1 = setup("/objetos/vidaextra");
+		abajo1 = setup("/objetos/vidaextra", gp.window_size, gp.window_size);
 	}
 }

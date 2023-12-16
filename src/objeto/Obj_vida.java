@@ -12,8 +12,8 @@ public class Obj_vida extends Entidad{
 		super(gp);
 		
 		nombre = "corazon";
-		image = setup("/objetos/heart");
-		image2 = setup("/objetos/emptyheart");
+		image = setup("/objetos/heart", gp.window_size, gp.window_size);
+		image2 = setup("/objetos/emptyheart", gp.window_size, gp.window_size);
 		
 	}
 }

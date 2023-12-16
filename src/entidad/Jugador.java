@@ -7,7 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import main.Controles;
-import main.Panel;    
+import main.Panel;
+import objeto.Obj_Bomb;    
 /**
  *
  * @author usuario
@@ -28,6 +29,10 @@ public class Jugador extends Entidad {
         
         setPredeterminado();
         getPlayerImage();
+        //getPlayerAttackImage();
+        
+        proyectil = new Obj_Bomb(gp);
+        
     }
     
     public void setPredeterminado(){
@@ -43,20 +48,29 @@ public class Jugador extends Entidad {
     
     public void getPlayerImage(){
         
-        arriba1 = setup("/player/arriba1");
-        arriba2 = setup("/player/arriba2");
-        abajo1 = setup("/player/abajo1");
-        abajo2 = setup("/player/abajo2");
-        izq1 = setup("/player/izquierda1");
-        izq2 = setup("/player/izquierda2");
-        der1 = setup("/player/derecha1");
-        der2 = setup("/player/derecha2");
+        arriba1 = setup("/player/arriba1", gp.window_size, gp.window_size);
+        arriba2 = setup("/player/arriba2", gp.window_size, gp.window_size);
+        abajo1 = setup("/player/abajo1", gp.window_size, gp.window_size);
+        abajo2 = setup("/player/abajo2", gp.window_size, gp.window_size);
+        izq1 = setup("/player/izquierda1", gp.window_size, gp.window_size);
+        izq2 = setup("/player/izquierda2", gp.window_size, gp.window_size);
+        der1 = setup("/player/derecha1", gp.window_size, gp.window_size);
+        der2 = setup("/player/derecha2", gp.window_size, gp.window_size);
         
     }
     
+    /**public void getPlayerAttackImage() {
+    	ataque = setup("/player/bomba1", gp.window_size, gp.window_size);
+    	
+    }*/
+    
     public void actualizar() {
     	
-    	if (control.arriba == true || control.abajo == true || control.izquierda == true || control.derecha == true) {  //
+    	/**if(atacando == true) {
+    		atacandoMethod();
+    	}*/
+    	
+    	/**else*/ if (control.arriba == true || control.abajo == true || control.izquierda == true || control.derecha == true) {  //
     	
 	        if (control.arriba == true){
 	            direccion = "arriba";
@@ -115,6 +129,14 @@ public class Jugador extends Entidad {
 	        }
     	}
         
+    	if(gp.control.espacio == true && proyectil.alive == false) {
+    		proyectil.set(x, y, direccion, true);
+    		
+    		//Añadimos proyectil a la lista.
+    		gp.proyectilLista.add(proyectil);
+    		
+    	}
+    	
     	if(invencible == true) {
     		contInvencible++;
     		if (contInvencible > 60) {
@@ -124,6 +146,21 @@ public class Jugador extends Entidad {
     	} 
     	
     }
+    
+    /**public void atacandoMethod() {
+    	spriteCounter++;
+    	if(spriteCounter <= 5) {
+    		spriteNum = 1;
+    	}
+    	if(spriteCounter > 5 && spriteCounter <= 25) {
+    		spriteNum = 2;
+    	}
+    	if(spriteCounter > 25) {
+    		spriteNum = 1;
+    		spriteCounter = 0;
+    		atacando = false;
+    	}
+    }*/
     
     public void recogerObjeto(int i){ //Tambien sirve para la interaccion entre objetos,
     	if(i != 999){
@@ -151,6 +188,12 @@ public class Jugador extends Entidad {
     	}
     }
     
+    /**public void ataqueChecker() {
+    	if (gp.control.espacio == true) {
+    		atacando = true;
+    	}
+    }*/
+    
     public void contactMonstruo(int i) {
     	if(i != 999) {
     		if(invencible == false) {
@@ -160,46 +203,37 @@ public class Jugador extends Entidad {
     	}
     }
     
-    public void dibujar(Graphics2D g2){
+    public void draw(Graphics2D g2){
         
         BufferedImage image = null;
+        //ataqueChecker();
         
         switch(direccion){
-            case "arriba":
-            	if(spriteNum == 1) {
-            		image = arriba1;
-            	}
-            	if(spriteNum == 2) {
-            		image = arriba2;
-            	}
+            case "arriba": 
+	            	if(spriteNum == 1) {image = arriba1;}
+	            	if(spriteNum == 2) {image = arriba2;}
                 break;
+                
             case "abajo":
-            	if(spriteNum == 1) {
-            		image = abajo1;
-            	}
-            	if(spriteNum == 2) {
-            		image = abajo2;
-            	}
+            	if(spriteNum == 1) {image = abajo1;}
+            	if(spriteNum == 2) {image = abajo2;}
                 break;
+                
             case "izquierda":
-            	if(spriteNum == 1) {
-            		image = izq1;
-            	}
-            	if(spriteNum == 2) {
-            		image = izq2;
-            	}
+            	if(spriteNum == 1) {image = izq1;}
+            	if(spriteNum == 2) {image = izq2;}
                 break;
+                
             case "derecha":
-            	if(spriteNum == 1) {
-            		image = der1;
-            	}
-            	if(spriteNum == 2) {
-            		image = der2;
-            	}
+            	if(spriteNum == 1) {image = der1;}
+            	if(spriteNum == 2) {image = der2;}
                 break;
         }
         
-       //g2.drawImage(image, x, y, null);
+        //if(atacando == true) {
+        	//image = ataque;
+        //}
+       g2.drawImage(image, x, y, null);
        
     }
     
